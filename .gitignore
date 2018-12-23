@@ -1,1 +1,3 @@
 /.idea/*
+/tensquare_common/target/*
+/tensquare_base/target/*
