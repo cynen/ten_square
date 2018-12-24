@@ -1,15 +1,20 @@
 package com.myth.base.pojo;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 
+/**
+ * 字段名需要和表的字段一致,否则在设置字段的时候,需要提供columon注解.
+ */
 @Entity
 @Table(name = "tb_label")
 public class Label implements Serializable {
         @Id
         private String id;//
+        @Column(name = "labelname") //#对应表中的字段名.
         private String labelname;//标签名称
         private String state;//状态
         private Long count;//使用数量

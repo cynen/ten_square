@@ -2,15 +2,20 @@ package com.myth.base.controller;
 
 import com.myth.base.pojo.Label;
 import com.myth.base.service.LabelService;
+import entity.PageResult;
 import entity.Result;
 import entity.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 标签控制层
  */
 @RestController
+@CrossOrigin   // 跨域必须添加的注解.
 @RequestMapping("/label")
 public class LabelController {
     @Autowired
@@ -54,11 +59,33 @@ public class LabelController {
     }
 
     /**
-     * 删除
+     * 根据ID进行删除
      */
     @RequestMapping(value = "/{Id}",method = RequestMethod.DELETE)
     public Result  deleteById(@PathVariable String Id){
         labelService.deleteById(Id);
         return new Result(true,StatusCode.OK,"删除成功");
     }
+
+    /**
+     * 条件查询.
+     * 文档没有要求分页.
+     */
+    @RequestMapping(value = "/search",method = RequestMethod.POST)
+    public Result findSearch(@RequestBody Label label){
+        // labelService.findSearch();
+        List<Label> list = labelService.findSearch(label);
+        return  new Result(true,StatusCode.OK,"查询成功",list);
+    }
+    /**
+     * 带条件的分页查询.
+     *
+     */
+    @RequestMapping(value = "/search/{page}/{size}",method = RequestMethod.POST)
+    public Result findSearchPages(@RequestBody Label label,@PathVariable int page,@PathVariable int size){
+        // labelService.findSearch();
+        Page<Label> pageData = labelService.pageQuery(label,page,size);
+        return  new Result(true,StatusCode.OK,"查询成功",new PageResult<Label>(pageData.getTotalElements(),pageData.getContent()));
+    }
+
 }
