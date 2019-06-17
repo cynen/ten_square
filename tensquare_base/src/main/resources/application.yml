@@ -5,7 +5,7 @@ spring:
     name: tensquare-base        # 指定服务器名称,后期SpringCloud需要使用到
   datasource:
     driver-class-name: com.mysql.jdbc.Driver  #数据库驱动
-    url: jdbc:mysql://127.0.0.1:3306/tensquare_base?characterEncoding=utf-8 #链接对应的数据库
+    url: jdbc:mysql://47.107.177.108:8806/tensquare_base?characterEncoding=utf-8 #链接对应的数据库
     username: root
     password: root
   jpa:
