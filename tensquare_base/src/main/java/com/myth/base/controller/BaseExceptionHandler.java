@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class BaseExceptionHandler {
 
+    // 只处理Exception异常,我们还可以添加 RuntimeException等.
     @ExceptionHandler(value = Exception.class)
     public Result error(Exception e){
         e.printStackTrace();
