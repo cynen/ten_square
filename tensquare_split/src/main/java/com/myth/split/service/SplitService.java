@@ -28,7 +28,7 @@ public class SplitService {
     private IdWorker idWorker;
 
     @Autowired
-    private MongoTemplate mongoTemplate;
+    private MongoTemplate mongoTemplate;//原生操作Mongodb的对象.
     /**
      * 全部查询,不带任何条件
      * @return
@@ -100,6 +100,7 @@ public class SplitService {
         splitDao.save(split);*/
 
         // 获得被点赞数.原生Java实现.
+        // 效率比上面一个稍微高一点.  原生update:  cdb.spit.update({"_id":"2"},{$inc:{"visit":Numberint(1)}})
         Query query = new Query();
         query.addCriteria(Criteria.where("_id").is(spitId));
         Update update = new Update();

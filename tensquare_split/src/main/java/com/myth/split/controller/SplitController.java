@@ -80,7 +80,7 @@ public class SplitController {
     @RequestMapping(value = "/thumbup/{spitId}",method = RequestMethod.PUT)
     public Result thunmpb(@PathVariable String spitId){
         // 先获取用户.
-        String userid = "123456"; // 目前没有做,先写死.
+        String userid = "123456"; // 目前没有做,先写死.做登录认证.
         if (redisTemplate.opsForValue().get("thumbup:"+userid+":"+spitId)!= null){
             // 说明查到过,已经点赞了.
             return new Result(true,StatusCode.REPERROR,"你已经点赞过了");

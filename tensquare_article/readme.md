@@ -18,7 +18,6 @@ stringRedisTemplate.opsForSet().add("red_123", "1","2","3");//向指定key中存
 stringRedisTemplate.opsForSet().isMember("red_123", "1")//根据key查看集合中是否存在指定数据
 stringRedisTemplate.opsForSet().members("red_123");//根据key获取set集合
 
-MongoDB的使用.
 
 
  "{[/article],methods=[POST]}" 
