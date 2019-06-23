@@ -44,7 +44,7 @@ tensquare_qa : 9003
 * 文章微服务:［MySQL + mongodb + Redis ］
 tensquare_article : 9004
 
-*　活动微服务：　［MySQL + Redis］
+* 活动微服务：　［MySQL + Redis］
 tensquare_gathering : 9005
 
 * 吐槽微服务: ［mongodb + Redis］
@@ -53,8 +53,11 @@ tensquare_split : 9006
 * 搜索微服务:[ElasticSearch]
 tensquare_search : 9007
 
+* 用户微服务 : RabbitMQ + MySQL  + Redis
+tensquare_user : 9008
 
-
+* 短信服务: RabbitMQ
+tensquare_sms : 9009
 
 
 
