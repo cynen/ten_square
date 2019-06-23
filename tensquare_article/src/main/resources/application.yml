@@ -11,9 +11,11 @@ spring:
   jpa: 
     database: MySQL
     show-sql: true
+  data:
+    mongodb:
+      host: 47.107.177.108
+      port: 8380
+      database: comment
   redis:
     host: 47.107.177.108
     port: 8379
-  data:
-    mongodb:
-      host: 192.168.25.129

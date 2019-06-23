@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import util.IdWorker;
 
+import java.util.List;
+
 @Service
 public class ArticleSearchService {
 
@@ -17,6 +19,8 @@ public class ArticleSearchService {
 
     @Autowired
     private IdWorker idWorker;
+
+
     /**
      * 索引新增一笔数据
      */

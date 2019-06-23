@@ -30,31 +30,28 @@ tensquare_common [基础服务,被其他服务依赖]
 
 第二步:
 
-tensquare_base [基本微服务]
+所有的微服务包括端口号:
 
-label标签相关的服务.
+* 基础微服务: 包括标签等.［MySQL ］
+tensquare_base : 9001   
 
-第三步:
+* 招聘微服务:［MySQL ］
+tensquare_recruit : 9002
 
-招聘微服务
+* 问答微服务:［MySQL］
+tensquare_qa : 9003
 
-第四步: 
+* 文章微服务:［MySQL + mongodb + Redis ］
+tensquare_article : 9004
 
-问答微服务
+*　活动微服务：　［MySQL + Redis］
+tensquare_gathering : 9005
 
-第五步:
+* 吐槽微服务: ［mongodb + Redis］
+tensquare_split : 9006
 
-文章微服务
-
-
-
-
-
-
-
-
-
-
+* 搜索微服务:[ElasticSearch]
+tensquare_search : 9007
 
 
 

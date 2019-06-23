@@ -15,6 +15,9 @@ public class Article implements Serializable {
     @Id
     private String id; //文章ID
 
+    // 是否索引,就是该域是否能被搜索
+    // 是否分词,就是表示搜索的时候,是整体匹配和是分词匹配
+    // 是否存储,就是是否在页面展示.
     @Field(index = true,analyzer = "ik_max_word",searchAnalyzer = "ik_max_word")
     private String title; // 文章的Title
 

@@ -11,7 +11,7 @@ import org.bson.conversions.Bson;
 public class MongoTest {
     public static void main(String[] args) {
         // 创建链接对象
-        MongoClient client = new MongoClient("192.168.25.129");
+        MongoClient client = new MongoClient("47.107.177.108",8380);
 
         //选择对应的数据库
         MongoDatabase database = client.getDatabase("splitdb");

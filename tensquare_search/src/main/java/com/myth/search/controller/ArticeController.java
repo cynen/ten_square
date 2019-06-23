@@ -17,12 +17,14 @@ public class ArticeController {
     private ArticleSearchService articleSearchService;
 
 
+
     // 新增数据
     @RequestMapping(method = RequestMethod.POST)
     public Result addArticle(@RequestBody Article article){
         articleSearchService.add(article);
         return new Result(true, StatusCode.OK,"新增成功");
     }
+
 
     // 查询数据
     @RequestMapping(value = "/search/{keywords}/{page}/{size}",method = RequestMethod.GET)

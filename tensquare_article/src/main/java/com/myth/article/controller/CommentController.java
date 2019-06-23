@@ -37,6 +37,13 @@ public class CommentController {
         return new Result(true, StatusCode.OK,"新增成功");
     }
 
+    @RequestMapping(value = "/{commentid}",method = RequestMethod.PUT)
+    public Result updateComment(@RequestBody Comment comment,@PathVariable String commentid){
+        comment.set_id(commentid);
+        commentService.updateComment(comment);
+        return new Result(true, StatusCode.OK,"更新成功");
+    }
+
 
     /**
      * 根据文章id查询评论列表

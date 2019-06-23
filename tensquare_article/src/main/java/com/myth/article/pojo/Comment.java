@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 评论的实体类.
+ * 评论的实体类. [mongoDB]
  * 因为不和数据库交互,所以不需要使用Entity的注解.
  */
 public class Comment implements Serializable {

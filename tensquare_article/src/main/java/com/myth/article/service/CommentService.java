@@ -54,4 +54,23 @@ public class CommentService {
         return commentDao.findByArticleid(articleId,pageable);
     }
 
+    // 更新
+    public void updateComment(Comment comment) {
+        // 自带ID
+        Comment comment1 = commentDao.findById(comment.get_id()).get();
+        // 判断,不为空的需要更新.
+        if(StringUtils.isNotBlank(comment.getParentid())){
+            comment1.setParentid(comment.getParentid());
+        }
+        if(StringUtils.isNotBlank(comment.getArticleid())){
+            comment1.setParentid(comment.getArticleid());
+        }
+        if(StringUtils.isNotBlank(comment.getContent())){
+            comment1.setParentid(comment.getContent());
+        }
+        if(StringUtils.isNotBlank(comment.getUserid())){
+            comment1.setParentid(comment.getUserid());
+        }
+        commentDao.save(comment1);
+    }
 }
