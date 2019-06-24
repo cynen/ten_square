@@ -1,0 +1,28 @@
+server: 
+  port: 9008
+
+spring:
+  application:
+    name: tensquare-user        # 指定服务器名称,后期SpringCloud需要使用到
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver  #数据库驱动
+    url: jdbc:mysql://47.107.177.108:8806/tensquare_user?characterEncoding=utf-8 #链接对应的数据库
+    username: root
+    password: root
+  jpa:
+    database: mysql #数据库类型
+    show-sql: true # 展示SQL语句
+
+  rabbitmq:
+    host: 47.107.177.108
+    username: admin
+    password: admin
+    port: 5672
+
+  redis:
+    host: 47.107.177.108
+    port: 8379
+
+aliyun:
+  sms:
+    enable: false  # 需要使用的时候,设置为true即可.
