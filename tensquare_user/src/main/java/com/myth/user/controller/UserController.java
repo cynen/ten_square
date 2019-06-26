@@ -2,6 +2,7 @@ package com.myth.user.controller;
 import java.util.List;
 import java.util.Map;
 
+import io.jsonwebtoken.Claims;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,6 +20,9 @@ import com.myth.user.service.UserService;
 import entity.PageResult;
 import entity.Result;
 import entity.StatusCode;
+
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * 控制器层
  * @author Administrator
@@ -34,6 +38,9 @@ public class UserController {
 	
 	@Autowired
 	private RedisTemplate redisTemplate;
+
+	@Autowired
+	private HttpServletRequest request;
 	/**
 	 * 查询全部数据
 	 * @return
@@ -100,10 +107,15 @@ public class UserController {
 	
 	/**
 	 * 删除
+	 * 	 * 做鉴权判断.
 	 * @param id
 	 */
 	@RequestMapping(value="/{id}",method= RequestMethod.DELETE)
 	public Result delete(@PathVariable String id ){
+		Claims claims=(Claims) request.getAttribute("claims_admin");
+		if (claims == null ){
+			return new Result(false,StatusCode.ACCESSERROR,"权限不足!");
+		}
 		userService.deleteById(id);
 		return new Result(true,StatusCode.OK,"删除成功");
 	}

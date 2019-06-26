@@ -10,5 +10,7 @@ import com.myth.user.pojo.Admin;
  *
  */
 public interface AdminDao extends JpaRepository<Admin,String>,JpaSpecificationExecutor<Admin>{
-	
+
+    // 添加一个根据用户名查询的功能.
+    public Admin findAdminByLoginname(String loginname);
 }

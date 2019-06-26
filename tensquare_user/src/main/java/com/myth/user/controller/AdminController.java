@@ -1,7 +1,9 @@
 package com.myth.user.controller;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,6 +19,10 @@ import com.myth.user.service.AdminService;
 import entity.PageResult;
 import entity.Result;
 import entity.StatusCode;
+import util.JwtUtil;
+
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * 控制器层
  * @author Administrator
@@ -29,8 +35,13 @@ public class AdminController {
 
 	@Autowired
 	private AdminService adminService;
-	
-	
+
+	@Autowired
+	private JwtUtil jwtUtil;
+
+	@Autowired
+	private HttpServletRequest request;
+
 	/**
 	 * 查询全部数据
 	 * @return
@@ -96,13 +107,36 @@ public class AdminController {
 	}
 	
 	/**
-	 * 删除
+	 * 删除用户
 	 * @param id
+
+	 *
 	 */
 	@RequestMapping(value="/{id}",method= RequestMethod.DELETE)
 	public Result delete(@PathVariable String id ){
 		adminService.deleteById(id);
 		return new Result(true,StatusCode.OK,"删除成功");
 	}
-	
+
+	/**
+	 * admin用户的登录相关验证.和登录成功后签发整数token
+	 * @param admin
+	 * @return
+	 */
+	@RequestMapping(value = "/login",method = RequestMethod.POST)
+	public Result adminLogin(@RequestBody Admin admin){
+		Admin loginAdmin = adminService.findByLoginnameandPassword(admin.getLoginname(),admin.getPassword());
+		if (loginAdmin == null ){
+			return new Result(false,StatusCode.LOGINERROR,"登录失败");
+		}
+		// 管理员登录后,签发证书:
+		String token = jwtUtil.createJWT(loginAdmin.getId(),loginAdmin.getPassword(),"admin");
+		Map map=new HashMap();
+		map.put("token",token);
+		map.put("name",admin.getLoginname());//登陆名
+
+		// 将token推送给返回的信息中.
+		return new Result(true,StatusCode.OK,"登录成功",map);
+	}
+
 }

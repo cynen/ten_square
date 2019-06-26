@@ -26,3 +26,9 @@ spring:
 aliyun:
   sms:
     enable: false  # 需要使用的时候,设置为true即可.
+
+
+jwt:
+  config:
+    key: tensquare
+    ttl:  3600000 # 不配置表示token永不过期.

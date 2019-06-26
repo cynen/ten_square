@@ -17,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import util.IdWorker;
@@ -38,6 +39,9 @@ public class AdminService {
 	
 	@Autowired
 	private IdWorker idWorker;
+
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 
 	/**
 	 * 查询全部列表
@@ -87,6 +91,9 @@ public class AdminService {
 	 */
 	public void add(Admin admin) {
 		admin.setId( idWorker.nextId()+"" );
+		// 密码加密处理
+		String newPassword = encoder.encode(admin.getPassword());
+		admin.setPassword(newPassword);
 		adminDao.save(admin);
 	}
 
@@ -142,4 +149,22 @@ public class AdminService {
 
 	}
 
+	/**
+	 * 根据登陆名和密码查询,使用admin用户的登录认证.
+	 * @param loginname
+	 * @param password
+	 * @return
+	 */
+	public Admin findByLoginnameandPassword(String loginname,String password){
+		// 校验用户是否正确的规则:
+		// 1.首先根据用户名称去数据库查询对应的用户,可能会返回多用户? 但是用户名做主键就不会出现这种情况.
+		// 2. 根据查询出来的用户的密码进行比对.是否是正确的.
+		// 3. 不正确的用户,直接返回null
+		Admin admin = adminDao.findAdminByLoginname(loginname);
+
+		if(admin!=null && encoder.matches(password,admin.getPassword())){
+			return admin;
+		}
+		return null;
+	}
 }
