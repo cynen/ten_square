@@ -21,6 +21,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import util.IdWorker;
@@ -52,6 +53,8 @@ public class UserService {
 	@Value("${aliyun.sms.enable}")
     private boolean smsenable;
 
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 	/**
 	 * 查询全部列表
 	 * @return
@@ -107,7 +110,8 @@ public class UserService {
         user.setRegdate(new Date());//注册日期
         user.setUpdatedate(new Date());//更新日期
         user.setLastdate(new Date());//最后登陆日期
-
+		// 密码加密
+		user.setPassword(encoder.encode(user.getPassword()));
 		userDao.save(user);
 	}
 
@@ -210,4 +214,11 @@ public class UserService {
 
 	}
 
+	public User findByMobileandPassword(String mobile, String password) {
+		User findUser = userDao.findUserByMobile(mobile);
+		if (findUser != null && encoder.matches(password,findUser.getPassword()) ){
+			return findUser;
+		}
+		return null;
+	}
 }

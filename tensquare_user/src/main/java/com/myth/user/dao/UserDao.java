@@ -10,5 +10,6 @@ import com.myth.user.pojo.User;
  *
  */
 public interface UserDao extends JpaRepository<User,String>,JpaSpecificationExecutor<User>{
-	
+
+    public User findUserByMobile(String mobile);
 }

@@ -31,4 +31,4 @@ aliyun:
 jwt:
   config:
     key: tensquare
-    ttl:  3600000 # 不配置表示token永不过期.
+    # ttl:  3600000 # 不配置表示token永不过期.

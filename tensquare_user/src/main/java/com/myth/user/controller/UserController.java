@@ -1,7 +1,9 @@
 package com.myth.user.controller;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.myth.user.pojo.Admin;
 import io.jsonwebtoken.Claims;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import com.myth.user.service.UserService;
 import entity.PageResult;
 import entity.Result;
 import entity.StatusCode;
+import util.JwtUtil;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -41,6 +44,9 @@ public class UserController {
 
 	@Autowired
 	private HttpServletRequest request;
+
+	@Autowired
+	private JwtUtil jwtUtil;
 	/**
 	 * 查询全部数据
 	 * @return
@@ -153,5 +159,27 @@ public class UserController {
 		userService.add(user);
 		return new Result(true,StatusCode.OK,"注册成功!");
 	}
+
+	/**
+	 * admin用户的登录相关验证.和登录成功后签发整数token
+	 * @param user
+	 * @return
+	 */
+	@RequestMapping(value = "/login",method = RequestMethod.POST)
+	public Result adminLogin(@RequestBody User user){
+		User loginUser = userService.findByMobileandPassword(user.getMobile(),user.getPassword());
+		if (loginUser == null ){
+			return new Result(false,StatusCode.LOGINERROR,"登录失败");
+		}
+		// 管理员登录后,签发证书:
+		String token = jwtUtil.createJWT(loginUser.getId(),loginUser.getPassword(),"user");
+		Map map=new HashMap();
+		map.put("token",token);
+		map.put("name",user.getMobile());//登陆名
+
+		// 将token推送给返回的信息中.
+		return new Result(true,StatusCode.OK,"登录成功",map);
+	}
+
 }
 

@@ -1,9 +1,6 @@
 package com.myth.qa.service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -12,6 +9,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Selection;
 
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -83,11 +81,28 @@ public class ProblemService {
 	}
 
 	/**
-	 * 增加
+	 * 增加 ,获取当前登录人的信息
 	 * @param problem
 	 */
-	public void add(Problem problem) {
+	public void add(Problem problem, Claims claims) {
 		problem.setId( idWorker.nextId()+"" );
+/*		private java.util.Date createtime;//创建日期
+		private java.util.Date updatetime;//修改日期
+		private String userid;//用户ID
+		private String nickname;//昵称
+		private Long visits;//浏览量
+		private Long thumbup;//点赞数
+		private Long reply;//回复数
+		private String solve;//是否解决*/
+		problem.setCreatetime(new Date());
+		problem.setUpdatetime(new Date());
+		problem.setUserid(claims.getSubject()); //
+		// problem.setNickname(claims.getSubject());
+		problem.setVisits(0L);
+		problem.setThumbup(0L);
+		problem.setReply(0L);
+		problem.setSolve("0"); // 初始状态
+
 		problemDao.save(problem);
 	}
 
