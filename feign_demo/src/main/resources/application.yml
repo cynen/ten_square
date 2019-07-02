@@ -1,0 +1,22 @@
+server: 
+  port: 19008
+
+spring:
+  application:
+    name: feign-demo        # 指定服务器名称,后期SpringCloud需要使用到
+
+aliyun:
+  sms:
+    enable: false  # 需要使用的时候,设置为true即可.
+
+jwt:
+  config:
+    key: tensquare
+    # ttl:  3600000 # 不配置表示token永不过期.
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.0.106:6868/eureka
+  instance:
+    prefer-ip-address: true

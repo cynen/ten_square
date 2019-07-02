@@ -11,4 +11,9 @@ spring:
   jpa:
     database: mysql #数据库类型
     show-sql: true # 展示SQL语句
-
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.0.106:6868/eureka
+  instance:
+    prefer-ip-address: true

@@ -6,6 +6,9 @@ import util.IdWorker;
 import util.JwtUtil;
 
 @SpringBootApplication
+@EnableEurekaClient
+@EnableDiscoveryClient
+@EnableFeignClients
 public class QaApplication {
 
 	public static void main(String[] args) {

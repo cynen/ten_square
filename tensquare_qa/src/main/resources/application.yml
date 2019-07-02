@@ -14,3 +14,9 @@ spring:
 jwt:
   config:
     key: tensquare
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.0.106:6868/eureka
+  instance:
+    prefer-ip-address: true
