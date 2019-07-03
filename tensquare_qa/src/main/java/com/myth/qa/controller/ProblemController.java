@@ -2,6 +2,7 @@ package com.myth.qa.controller;
 import java.util.List;
 import java.util.Map;
 
+import com.myth.qa.client.BaseClient;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -35,7 +36,10 @@ public class ProblemController {
 	private ProblemService problemService;
 	@Autowired
 	private HttpServletRequest request;
-	
+
+	@Autowired
+	private BaseClient baseClient;
+
 	/**
 	 * 查询全部数据
 	 * @return
@@ -147,6 +151,15 @@ public class ProblemController {
 	public Result waitlist(@PathVariable String label,@PathVariable int page,@PathVariable int size){
 		Page<Problem> pageData = problemService.waitlist(label,page,size);
 		return new Result(true,StatusCode.OK,"查询成功",new PageResult<Problem>(pageData.getTotalElements(),pageData.getContent()));
+	}
+
+
+	/**
+	 * 远程调用base中的接口
+	 */
+	@RequestMapping(value ="/label/{id}" ,method = RequestMethod.GET)
+	public Result queryLabelById(@PathVariable String id){
+		return baseClient.findById(id);
 	}
 
 
