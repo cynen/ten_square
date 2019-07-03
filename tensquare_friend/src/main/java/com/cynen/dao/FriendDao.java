@@ -26,4 +26,7 @@ public interface FriendDao extends JpaRepository<Friend,String> {
     public int updateLike(String userid,String friendid,String islike);
 
 
+    @Modifying
+    @Query(value = "delete from tb_friend where userid = ?1 and friendid = ?2 ",nativeQuery = true)
+    public int deleteByUseridAndFriendid(String userid,String friendid);
 }

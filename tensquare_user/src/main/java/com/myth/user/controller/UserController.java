@@ -181,5 +181,22 @@ public class UserController {
 		return new Result(true,StatusCode.OK,"登录成功",map);
 	}
 
+
+
+	// 变更粉丝数
+	@RequestMapping(value = "/updatefans/{userid}/{x}",method = RequestMethod.POST)
+	public Result updateFans(@PathVariable String userid,@PathVariable int x){
+		userService.updateFans(userid,x);
+		return  new Result(true,StatusCode.OK,"更新成功");
+	}
+
+
+	// 变更关注数
+	@RequestMapping(value = "/updatefollow/{userid}/{x}",method = RequestMethod.POST)
+	public Result updateFollow(@PathVariable String userid,@PathVariable int x){
+		userService.updateFollow(userid,x);
+		return  new Result(true,StatusCode.OK,"更新成功");
+	}
+
 }
 

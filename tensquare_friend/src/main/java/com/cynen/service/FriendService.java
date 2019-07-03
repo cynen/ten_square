@@ -1,9 +1,11 @@
 package com.cynen.service;
 
 
+import com.cynen.client.UserClient;
 import com.cynen.dao.FriendDao;
 import com.cynen.pojo.Friend;
 import com.netflix.discovery.converters.Auto;
+import entity.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,10 @@ public class FriendService {
 
     @Autowired
     private FriendDao friendDao;
+
+    @Autowired
+    private UserClient userClient;
+
 
 
     @Transactional
@@ -37,9 +43,38 @@ public class FriendService {
             friendDao.updateLike(userid,friendid,"1");
             friendDao.updateLike(friendid,userid,"1");
         }
+        // 更新关注数和粉丝数
+        userClient.updateFans(friendid,1);
+        userClient.updateFollow(userid,1);
+
+
         return  1; // 1表示执行成功.
     }
 
+    /**
+     * 删除friend表中的数据.
+     * @param userid
+     * @param friendid
+     * @return
+     */
+    @Transactional
+    public void deletelike(String userid,String friendid){
+        //1. 类似屏蔽, 首先判断当前用户是否喜欢此friend,如果喜欢,就要删除此数据/
+        int count = friendDao.queryUserFocus(userid,friendid);
+        if(count > 0){
+            friendDao.deleteByUseridAndFriendid(userid,friendid);
+        }
+        //2. 如果存在双向喜欢update friendid的用户为单向喜欢
+        count = friendDao.queryUserFocus(friendid,userid);
+        if(count > 0){
+            friendDao.updateLike(friendid,userid,"0"); // 更新为单向喜欢
+        }
+        //变更粉丝数和关注数:
+        Result result = userClient.updateFans(friendid,-1); // friendid的粉丝少一个
+        userClient.updateFollow(userid,-1); // user本身的关注数少一个.
+
+        // return  0; // 正常.
+    }
 
 
 

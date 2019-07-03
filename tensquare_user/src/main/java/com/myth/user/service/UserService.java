@@ -9,6 +9,7 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Selection;
+import javax.transaction.Transactional;
 
 import entity.Result;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -221,4 +222,15 @@ public class UserService {
 		}
 		return null;
 	}
+
+	@Transactional  // update/delete前置要求加事务.
+	public void updateFans(String userid,int x){
+		userDao.updateFans(userid,x);
+	}
+
+	@Transactional
+	public void updateFollow(String userid,int x){
+		userDao.updateFollow(userid,x);
+	}
+
 }

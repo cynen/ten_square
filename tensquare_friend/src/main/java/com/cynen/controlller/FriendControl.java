@@ -1,6 +1,7 @@
 package com.cynen.controlller;
 
 import com.cynen.service.FriendService;
+import com.cynen.service.NoFriendService;
 import com.sun.xml.internal.bind.v2.TODO;
 import entity.Result;
 import entity.StatusCode;
@@ -20,6 +21,8 @@ public class FriendControl {
 
     @Autowired
     private FriendService friendService;
+    @Autowired
+    private NoFriendService noFriendService;
 
     @Autowired
     private HttpServletRequest request;
@@ -49,16 +52,32 @@ public class FriendControl {
         }else if ("0".equals(type)){
             // 不喜欢
             // TODO  待完成
+            // 1. 首先清除friend表中的数据.
+            friendService.deletelike(claims.getId(),friendid);
 
-
-
-
+            // 其次,在nofriend表中添加数据
+            int result = noFriendService.addNoFriend(claims.getId(),friendid);
+            if(result == 0){
+                return new Result(false,StatusCode.ERROR,"重复添加NoFriend");
+            }else if (result == 1){
+                return new Result(true,StatusCode.OK,"添加成功");
+            }
+            return new Result(false,StatusCode.ERROR,"添加异常");
         }else {
             return new Result(false, StatusCode.ERROR,"type参数异常!");
         }
-        return new Result(true,StatusCode.OK,"操作成功");
     }
 
-
+    @RequestMapping(value = "/{friendid}",method = RequestMethod.DELETE)
+    public Result deleteFriend(@PathVariable String friendid){
+        // 1.鉴权
+        Claims claims = (Claims) request.getAttribute("claims_user"); // 判断是否有对应的角色.
+        if (claims == null) {
+            return new Result(false, StatusCode.ACCESSERROR,"权限不足");
+        }
+        // 2. 删除好友
+        friendService.deletelike(claims.getId(),friendid);
+        return new Result(true,StatusCode.OK,"删除成功");
+    }
 
 }
