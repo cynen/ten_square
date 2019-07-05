@@ -1,0 +1,52 @@
+server: 
+  port: 9011
+
+# 配置注册中心
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.0.106:6868/eureka
+  instance:
+    prefer-ip-address: true
+
+jwt:
+  config:
+    key: tensquare
+    # ttl:  3600000 # 不配置表示token永不过期.
+
+# 假设请求为:  tensquare-manager/base/label/1   # 使用服务名称,自带端口.
+# 将会被此zuul路由到: tensquare-base/label/1
+zuul:
+  routes:
+    tensquare-base:  # 解释: 路由 tensquare-base 微服务
+      path: /base/**   # 当检测到路径是以 /base/** 开头的路径,都会路由到 tensquare-base 微服务去
+      serviceId: tensquare-base
+    tensquare-user:
+      path: /user/**
+      serviceId: tensquare-user
+    tensquare-friend:
+      path: /friend/**
+      serviceId: tensquare-friend
+    tensquare-qa:
+      path: /qa/**
+      serviceId: tensquare-qa
+    tensquare-sms:
+      path: /sms/**
+      serviceId: tensquare-sms
+    tensquare-split:
+      path: /split/**
+      serviceId: tensquare-split
+    tensquare-article:
+      path: /article/**
+      serviceId: tensquare-article
+    tensquare-gathering:
+      path: /gathering/**
+      serviceId: tensquare-gathering
+    tensquare-recruit:
+      path: /recruit/**
+      serviceId: tensquare-recruit
+    tensquare-search:
+      path: /search/**
+      serviceId: tensquare-search
+
+
