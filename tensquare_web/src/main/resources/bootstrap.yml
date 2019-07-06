@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    config:
+      name: web
+      profile: dev  # 对应配置中心文件的${profile}部分
+      uri: http://127.0.0.1:8888
+      enabled: true

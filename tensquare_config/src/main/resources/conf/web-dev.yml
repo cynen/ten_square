@@ -1,4 +1,4 @@
-server: 
+server:
   port: 9012
 
 # 配置注册中心

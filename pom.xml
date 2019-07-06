@@ -25,6 +25,8 @@
         <module>feign_demo</module>
         <module>tensquare_web</module>
         <module>tensquare_manager</module>
+        <module>tensquare_config</module>
+        <module>aliyun_sso_demo</module>
     </modules>
     <packaging>pom</packaging>
 

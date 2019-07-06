@@ -35,8 +35,14 @@ public class WebFilter extends ZuulFilter {
         System.out.println("WebFilter执行了.... ");
         // 向header中添加token
         RequestContext requestContext = RequestContext.getCurrentContext();
-
         HttpServletRequest request = requestContext.getRequest();
+
+        // 通过Zuul网关是2次请求,第一次请求时为了获得对应的微服务,第二次请求才是真实转发.
+        if(request.getMethod().equals("OPTIONS")){ // 第一次网关内部的请求
+            System.out.println("网关第一次请求,直接放行");
+            return null;
+        }
+
         String authorization = request.getHeader("Authorization"); //自定义的token请求头.
         if (authorization != null){
             requestContext.addZuulRequestHeader("Authorization",authorization); //转发.

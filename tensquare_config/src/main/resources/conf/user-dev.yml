@@ -1,4 +1,4 @@
-server: 
+server:
   port: 9008
 
 spring:
@@ -39,4 +39,4 @@ eureka:
     service-url:
       defaultZone: http://192.168.0.106:6868/eureka
   instance:
-    prefer-ip-address: true
+    prefer-ip-address: true  # 允许跨域访问的.

@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: tensquare-config
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:conf/  # 搜索src/main/resource 下的conf文件夹下的文件
+server:
+  port: 8888

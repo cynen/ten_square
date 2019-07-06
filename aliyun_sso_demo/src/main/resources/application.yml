@@ -1,0 +1,9 @@
+server:
+  port: 9099
+
+aliyun:
+  oss:
+    endpoint: oss-cn-shenzhen.aliyuncs.com
+    accessKeyId: LTAIYRskjKzGWkH0
+    accessKeySecret: xED75rxKeC6BUs5NNUvoqtcvMi3GIT
+    bucketName: cynen
