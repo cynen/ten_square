@@ -12,7 +12,7 @@ spring:
 
 aliyun:
   sms:
-    accessKeyId: LTAIoyNt1Pto6Ne7
-    accessSecret: kSOrORovVbFm8z2v52NbCM8BcVopSq
+    accessKeyId: LTAIt9zRAesqmsa6
+    accessSecret: rvxeoGyeMsRIig2ExqsZ540WhhjTY2
     template_code: SMS_165413131
     sign_name: 云上myth
