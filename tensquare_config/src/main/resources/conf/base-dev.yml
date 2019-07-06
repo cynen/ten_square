@@ -11,6 +11,13 @@ spring:
   jpa:
     database: mysql #数据库类型
     show-sql: true # 展示SQL语句
+  rabbitmq:
+    host: 47.107.177.108
+    username: admin
+    password: admin
+    port: 5672
+
+
 eureka:
   client:
     service-url:

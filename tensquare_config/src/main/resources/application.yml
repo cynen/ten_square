@@ -1,3 +1,6 @@
+server:
+  port: 8888
+
 spring:
   application:
     name: tensquare-config
@@ -8,5 +11,18 @@ spring:
       server:
         native:
           search-locations: classpath:conf/  # 搜索src/main/resource 下的conf文件夹下的文件
-server:
-  port: 8888
+
+
+  rabbitmq:
+    host: 47.107.177.108
+    username: admin
+    password: admin
+    port: 5672
+
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh
