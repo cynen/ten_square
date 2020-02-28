@@ -12,7 +12,7 @@ spring:
 
 aliyun:
   sms:
-    accessKeyId: LTAIt9zRAesqmsa6
-    accessSecret: rvxeoGyeMsRIig2ExqsZ540WhhjTY2
+    accessKeyId: 阿里云的accessKey
+    accessSecret: 阿里云的Secret
     template_code: SMS_165413131
     sign_name: 云上myth
